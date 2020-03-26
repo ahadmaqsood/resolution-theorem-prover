@@ -1,0 +1,7 @@
+(defvar *customs* '( (1 ( (v x) (s x (f x)) )( (e x) ) )
+		   (2 ( (v y) (c (f y)) ) ( (e y) ) )
+		   (3 ( (e (a)) ) nil )
+		   (4 ( (d (a)) ) nil )
+		   (5 ( (d z) )   ( (s (a) z) ) )
+		   (6 nil   ( (d w) (v w) ) )
+		   (7 nil  ( (d r) (c r) ) )   )    ) ;; goal clause begins here

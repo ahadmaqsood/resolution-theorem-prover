@@ -1,0 +1,8 @@
+(defvar *rr* 	'( (1   ( (rr (a)) )   	( (coyote y) )   )
+		   (2	( (chase z (a)) ) ( (coyote z) )   )	
+		   (3   ( (smart x) )   ( (rr x) (beep x) )   )
+		   (4   nil ( (coyote w) (rr u) (catch w u) (smart u) )    )
+		   (5   ( (frustrated s) (catch s t) ) ( (coyote s) (rr t) (chase s t) )    )
+		   (6   ( (beep r) )  ( (rr r) )   )
+		   (7   ( ( coyote (b)) ) nil   ) ;; goal clause begins here
+		   (8   nil ( (frustrated (b)) )   )     ) )

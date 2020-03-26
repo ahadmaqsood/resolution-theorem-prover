@@ -1,0 +1,8 @@
+(defvar *howling*   '((1 ((howl z)) ((hound z)))
+                    (2 nil ((have x y) (cat y) (have x z) (mouse z)))
+                    (3 nil ((ls w) (have w v) (howl v)))
+                    (4 ((have (john) (a))) nil)
+                    (5 ((cat (a)) (hound (a))) nil)
+                    (6 ((mouse (b))) nil)    ;; goal clause begins here
+                    (7 ((ls (john))) nil)
+                    (8 ((have (john) (b))) nil)))

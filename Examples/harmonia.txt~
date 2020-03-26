@@ -1,0 +1,8 @@
+(defvar *harmonia* '( (1 ( (Grandparent x y) ) ( (Parent x z) (Parent z y) ) )
+		      (2 ( (Parent x y) ) ( (Mother x y) ) )
+		      (3 ( (Parent x y) ) ( (Father x y) ) )
+		      (4 ( (Father (Zeus) (Ares) ) ) nil )
+		      (5 ( (Mother (Hera) (Ares) ) ) nil )
+		      (6 ( (Father (Ares) (Harmonica) ) ) nil )
+		      (7 nil ( (Grandparent x (Harmonica) ) ) ) ) );; goal starts here
+		

@@ -16,12 +16,11 @@ public class Variable implements Unifiable
     public String toString()
     {
         if (printName != null)
-            return printName + "_" + id;
+            return printName;
         return "V" + id;
     }
     
-    public SubstitutionSet unify(Unifiable p,
-    SubstitutionSet s)
+    public SubstitutionSet unify(Unifiable p, SubstitutionSet s)
     {
         if (this == p) return s;
         if(s.isBound(this))
@@ -38,5 +37,10 @@ public class Variable implements Unifiable
         s.getBinding(this).replaceVariables(s);
         else
         return this;
+    }
+
+    public void changeName (String newName)
+    {
+        this.printName = newName;
     }
 }

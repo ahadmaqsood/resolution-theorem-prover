@@ -1,19 +1,14 @@
-public class Predicate implements Unifiable
+public class Function implements Unifiable
 {
-    private Unifiable[] terms;
-    private String predicateName;
-    
-    public Predicate(String predicateName, Unifiable... args)
+    private Unifiable[] terms; // first element is the function name
+    private String functionName;
+
+    public Function(String functionName, Unifiable... args)
     {
-        terms = args;
-        this.predicateName = predicateName;
+        this.terms = args;
+        this.functionName = functionName;
     }
-    
-    private Predicate(Unifiable... args)
-    {
-        terms = args;
-    }
-    
+
     public String toString()
     {
         String s = null;
@@ -28,9 +23,9 @@ public class Predicate implements Unifiable
         if (s == null)
         return "null";
 
-        return predicateName + " (" + s + ")";
+        return "(" + functionName + " " + s + ")";
     }
-    
+
     public int length()
     {
         return terms.length;
@@ -40,12 +35,12 @@ public class Predicate implements Unifiable
     {
         return terms[index];
     }
-    
+
     public SubstitutionSet unify(Unifiable p, SubstitutionSet s)
     {
-        if (p instanceof Predicate)
+        if (p instanceof Function)
         {
-            Predicate s2 = (Predicate) p;
+            Function s2 = (Function) p;
             if (this.length() != s2.length())
             return null;
             
@@ -61,6 +56,7 @@ public class Predicate implements Unifiable
         
         if(p instanceof Variable)
         return p.unify(this, s);
+        
         return null;
     }
     
@@ -70,6 +66,21 @@ public class Predicate implements Unifiable
         Unifiable[terms.length];
         for(int i = 0; i < length(); i++)
         newTerms[i] = (Unifiable)terms[i].replaceVariables(s);
-        return new Predicate(newTerms);
+        return new Function(functionName, newTerms);
+    }
+
+    public void changeMatchingVariables(Variable toCheck)
+    {
+        for (int i = 0; i < length(); ++i)
+        {
+            if (terms[i] instanceof Variable)
+            {
+                var termVar = (Variable) terms[i];
+                if (toCheck.toString().equals(termVar.toString()))
+                {
+                    ((Variable) terms[i]).changeName(termVar.toString() + "_c");
+                }
+            }
+        }
     }
 }

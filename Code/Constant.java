@@ -17,7 +17,7 @@ public class Constant implements Unifiable
     public String toString()
     {
         if (printName!= null)
-        return printName;
+            return "(" + printName + ")";
         return "constant_" + id;
     }
     
