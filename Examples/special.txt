@@ -1,0 +1,7 @@
+(defvar *special*   '((1 ((Star x)) ((Loves (Mary) x)))
+		      (2 (( Pass x)) ((Play x) (Student x)))
+		      (3 ((Student (John))) ())
+		      (4 (( Study x)) ((Pass x) (Student x)))
+		      (5 ((Play x)) ((Star x)) )
+		      (6 ( ( Loves (Mary) (John) )) nil );; goal begins here
+		      (7 nil ( ( Study (John) ) ) )))

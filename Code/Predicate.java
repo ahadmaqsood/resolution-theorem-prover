@@ -8,12 +8,7 @@ public class Predicate implements Unifiable
         terms = args;
         this.predicateName = predicateName;
     }
-    
-    private Predicate(Unifiable... args)
-    {
-        terms = args;
-    }
-    
+  
     public String toString()
     {
         String s = null;
@@ -52,10 +47,12 @@ public class Predicate implements Unifiable
             SubstitutionSet sNew = new SubstitutionSet(s);
             for (int i = 0; i < this.length(); i++)
             {
-                sNew = this.getTerm(i).unify(s2.getTerm(i), sNew);
-                if(sNew == null)
-                return null;
+                SubstitutionSet sTest = this.getTerm(i).unify(s2.getTerm(i), sNew);
+                if (sTest != null)
+                    sNew = sTest;
             }
+            if(sNew == null)
+                return null;
             return sNew;
         }
         
@@ -109,7 +106,7 @@ public class Predicate implements Unifiable
                 {
                     if (terms[j] instanceof Variable)
                     {
-                        // If variable's names are the same, add a "_c"
+                        // If variable's names are the same, add a "_c" to denote change
                         var thisTermVar = (Variable) terms[j];
                         if (thisTermVar.toString().equals(termVar.toString()))
                         {
@@ -117,20 +114,56 @@ public class Predicate implements Unifiable
                         }
                     }
 
-                    if (terms[j] instanceof Function)
+                    else if (terms[j] instanceof Function)
                     {
+                        // Check for matching variables in the function
                         var thisTermFunc = (Function) terms[j];
                         thisTermFunc.changeMatchingVariables(termVar);
                     }
                 }
             }
 
-            // if (term instanceof Function)
-            // {
-                
-            // }
+            if (term instanceof Function)
+            {
+                checkMatching((Function) term);
+            }
 
 
+        }
+    }
+
+    // Helper to change matching variables
+    private void checkMatching (Function toCheck)
+    {
+        for (int i = 0; i < toCheck.length(); ++i)
+        {
+            Unifiable term = toCheck.getTerm(i);
+            if (term instanceof Function)
+            {
+                checkMatching((Function) term);
+            }
+            else if (term instanceof Variable)
+            {
+                var termVar = (Variable) term;
+                for (int j = 0; j < length(); ++j)
+                {
+                    if (terms[j] instanceof Variable)
+                    {
+                        // If variable's names are the same, add a "_c" to denote change
+                        var thisTermVar = (Variable) terms[j];
+                        if (thisTermVar.toString().equals(termVar.toString()))
+                        {
+                            ((Variable) terms[j]).changeName(thisTermVar.toString() + "_c");
+                        }
+                    }
+                    else if (terms[j] instanceof Function)
+                    {
+                        // Check for matching variables in the function
+                        var thisTermFunc = (Function) terms[j];
+                        thisTermFunc.changeMatchingVariables(termVar);
+                    }
+                }
+            }
         }
     }
 }

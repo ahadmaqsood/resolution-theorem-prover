@@ -170,6 +170,17 @@ public class ResolutionSolver
                     literal1Predicate = (Predicate) literal1Predicate.replaceVariables(unifier);
                     literal2Predicate = (Predicate) literal2Predicate.replaceVariables(unifier);
                 }
+                else
+                {
+                    unifier = literal2Predicate.unify(literal1Predicate, new SubstitutionSet());
+                    if (unifier != null)
+                    {
+                        // Replace using unifier
+                        literal1Predicate = (Predicate) literal1Predicate.replaceVariables(unifier);
+                        literal2Predicate = (Predicate) literal2Predicate.replaceVariables(unifier);
+                    }
+                }
+
                 
                 if (literal1Predicate.isEqualTo(literal2Predicate))
                 {

@@ -33,8 +33,7 @@ public class Variable implements Unifiable
     public PCExpression replaceVariables(SubstitutionSet s)
     {
         if(s.isBound(this))
-        return
-        s.getBinding(this).replaceVariables(s);
+        return s.getBinding(this).replaceVariables(s);
         else
         return this;
     }
